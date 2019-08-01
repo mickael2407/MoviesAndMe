@@ -1,14 +1,24 @@
 // Components/FilmItem.js
 
 import React from 'react'
-import { StyleSheet, Text } from 'react-native'
+import { StyleSheet, View, FilmList } from 'react-native'
+import { connect } from 'react-redux';
+import FilmList from './FilmList';
 
 
 class Favorites extends React.Component {
 
+    constructor(props) {
+        super(props);
+    }
     render() {
         return (
-            <Text>Mes favoris</Text>
+            <View>
+                <FilmList
+                    navigation={this.props.navigation}
+                    loadFilms={this.loadFilms}
+                />
+            </View>
         )
     }
 }
@@ -16,5 +26,9 @@ class Favorites extends React.Component {
 const styles = StyleSheet.create({
 })
 
-
-export default Favorites;
+const mapStateToProps = (state) => {
+    return {
+      favoritesFilms: state.favoritesFilms
+    };
+}
+export default connect(mapStateToProps)(Favorites);

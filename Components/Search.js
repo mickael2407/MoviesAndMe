@@ -4,6 +4,8 @@ import { YellowBox } from 'react-native';
 import FilmItem from './FilmItems';
 YellowBox.ignoreWarnings(['Remote debugger']);
 import { getFilmFromApi } from '../api/TMDB_API';
+import FilmList from './FilmList';
+
 
 export class Search extends React.Component {
 
@@ -17,6 +19,8 @@ export class Search extends React.Component {
         this.searchedText = '';
         this.page = 0;
         this.totalPage = 0;
+
+        this.loadFilms = this.loadFilms.bind(this);
     }
 
     setSearchedText(text) {
@@ -49,8 +53,8 @@ export class Search extends React.Component {
         this.props.navigation.navigate("FilmDetail", {idFilm: idFilm});
     }
     loadFilms() {
-        this.setState({isLoading: true});
         if (this.searchedText.length > 0) {
+            this.setState({isLoading: true});
             getFilmFromApi(this.searchedText, this.page + 1).then(data =>{
                 this.page = data.page;
                 this.totalPage = data.total_pages;
@@ -69,19 +73,14 @@ export class Search extends React.Component {
              <View style={ styles.main_container }>
                  <TextInput onChangeText={(text) => this.setSearchedText(text)} onSubmitEditing={() =>this.searchFilms()} style={ styles.textinputs } placeholder="Titre du film"/>
                  <Button style={{ height: 50 }} title="Rechercher" onPress={() => this.searchFilms()}/>
-                 <FlatList
-                    data={ this.state.films }
-                    onEndReachedThreshold = {0.5}
-                    onEndReached={() => {
-                        if (this.page < this.totalPage) {
-                            this.loadFilms();
-                        }
-                    }}
-                    extraData={this.props.favoritesFilm}
-                    keyExtractor={(item) => item.id.toString() }
-                    renderItem={({item}) =><FilmItem film={item} displayDetailForFilm={this.displayDetailForFilm}/>}
-                    />
-                    {this.diaplayLoading()}
+                 <FilmList
+                    films={this.state.films}
+                    navigation={this.props.navigation}
+                    loadFilms={this.loadFilms}
+                    page={this.page}
+                    totalPage={this.totalPage}
+                 />
+                 {this.diaplayLoading()}
              </View>
         )
     }

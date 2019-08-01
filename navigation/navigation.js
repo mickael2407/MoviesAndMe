@@ -24,7 +24,7 @@ const MoviesTabNavigator = createBottomTabNavigator({
         navigationOptions: {
             tabBarIcon: () => {
                 return <Image
-                    soource={require('../assets/ic_search.png')}
+                    source={require('../assets/ic_search.png')}
                     style={styles.icon} />
             }
         }
@@ -34,7 +34,7 @@ const MoviesTabNavigator = createBottomTabNavigator({
         navigationOptions: {
             tabBarIcon: () => {
                 return <Image
-                    soource={require('../assets/icon.png')}
+                    source={require('../assets/ic_favorite.png')}
                     style={styles.icon} />
             }
         }
@@ -43,7 +43,9 @@ const MoviesTabNavigator = createBottomTabNavigator({
     {
         tabBarOptions: {
             showLabel: false,
-            showIcon: true
+            showIcon: true,
+            activeBackgroundColor: '#DDDDDD',
+            inactiveBackgroundColor: '#FFFFFF'
         }
     });
 
