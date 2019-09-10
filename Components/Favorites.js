@@ -1,15 +1,14 @@
 // Components/FilmItem.js
 
 import React from 'react'
-import { StyleSheet, View, FilmList } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { connect } from 'react-redux';
 import FilmList from './FilmList';
-
-
 class Favorites extends React.Component {
 
     constructor(props) {
         super(props);
+        console.log(props);
     }
     render() {
         return (
@@ -17,6 +16,8 @@ class Favorites extends React.Component {
                 <FilmList
                     navigation={this.props.navigation}
                     loadFilms={this.loadFilms}
+                    films={this.props.favoritesFilms}
+                    totalPage={this.props.favoritesFilms.length}
                 />
             </View>
         )
