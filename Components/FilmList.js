@@ -30,14 +30,14 @@ import FilmItems from './FilmItems';
           keyExtractor={(item) => item.id.toString()}
           renderItem={({item}) => (
             <FilmItems
-              film={item}
+              film={(item)}
               isFilmFavorite={(this.props.favoritesFilms.findIndex(film => film.id === item.id) !== -1) ? true : false}
               displayDetailForFilm={this.displayDetailForFilm}
             />
           )}
           onEndReachedThreshold={0.5}
           onEndReached={() => {
-            if (this.props.page < this.props.totalPage) {
+            if (!this.props.favoriteList && this.props.page < this.props.totalPage) {
               // On appelle la méthode loadFilm du component Search pour charger plus de films
               this.props.loadFilms()
             }
