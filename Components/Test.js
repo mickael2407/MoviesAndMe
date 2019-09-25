@@ -8,7 +8,7 @@ class Test extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-          topPosition: new Animated.Value(0)
+          topPosition: new Animated.Value(0),
         }
     }
 
